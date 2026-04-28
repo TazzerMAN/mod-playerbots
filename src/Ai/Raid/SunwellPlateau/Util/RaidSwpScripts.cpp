@@ -111,6 +111,21 @@ public:
                 AoeAvoidance::TANK_POLICY_FLEE);
             return;
         }
+
+        // M'uru / Entropius — Dark Fiends spawn from M'uru's Darkness and
+        // explode after ~3s. Register their spawn position so bots back off
+        // until the explosion fires (or the fiend is killed by the raid).
+        if (spellInfo->Id == SPELL_DARK_FIEND_APPEARANCE)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                instanceId,
+                caster->GetPosition(),
+                DARK_FIEND_RADIUS,
+                DARK_FIEND_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
     }
 };
 

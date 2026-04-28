@@ -30,6 +30,10 @@ namespace SunwellHelpers
         SPELL_PYROGENICS                    = 45230,
         SPELL_CONFLAGRATION                 = 45342,
         SPELL_BLAZE_SUMMON                  = 45236,
+
+        // M'uru / Entropius
+        SPELL_DARK_FIEND_APPEARANCE         = 45934,
+        SPELL_DARK_FIEND_TRIGGER            = 45944,
     };
 
     enum SwpNPCs
@@ -91,6 +95,12 @@ namespace SunwellHelpers
     // Tank swap threshold: above this stack count of Dark/Flame Touched the
     // tank's damage taken from that school spirals; canonical strat swaps at 5.
     constexpr uint8 EREDAR_SWAP_STACK_THRESHOLD   = 5;
+
+    // M'uru tuning
+    // Dark Fiends spawn in a small radius and explode ~3s later. Window of
+    // 4s gives a small safety margin before the registry auto-prunes.
+    constexpr uint32 DARK_FIEND_TTL_MS            = 4000;
+    constexpr float DARK_FIEND_RADIUS             = 5.0f;
 }
 
 #endif
