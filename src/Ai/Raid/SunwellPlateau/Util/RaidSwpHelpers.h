@@ -34,6 +34,15 @@ namespace SunwellHelpers
         // M'uru / Entropius
         SPELL_DARK_FIEND_APPEARANCE         = 45934,
         SPELL_DARK_FIEND_TRIGGER            = 45944,
+
+        // Kalecgos
+        // Curse of Boundless Agony is dispelled automatically by mage/druid
+        // bots via the generic "remove curse on party" trigger
+        // (ACTION_DISPEL + 7). No SWP-specific trigger needed.
+        SPELL_SPECTRAL_BLAST                = 44869,
+        SPELL_SPECTRAL_REALM                = 46021,
+        SPELL_CURSE_OF_BOUNDLESS_AGONY      = 45032,
+        SPELL_BANISH                        = 44836,
     };
 
     enum SwpNPCs
@@ -101,6 +110,11 @@ namespace SunwellHelpers
     // 4s gives a small safety margin before the registry auto-prunes.
     constexpr uint32 DARK_FIEND_TTL_MS            = 4000;
     constexpr float DARK_FIEND_RADIUS             = 5.0f;
+
+    // Kalecgos tuning
+    // Pause DPS on our boss when the other realm is more than this many
+    // HP percent points behind, to keep the simultaneous 1% banish in sync.
+    constexpr float KALECGOS_HP_BALANCE_THRESHOLD = 5.0f;
 }
 
 #endif

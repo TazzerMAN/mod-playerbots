@@ -159,3 +159,14 @@ bool EredarTwinsTauntOtherSisterAction::Execute(Event /*event*/)
     botAI->DoSpecificAction("taunt spell", Event(), true);
     return true;
 }
+
+bool KalecgosFocusSathrovarrAction::Execute(Event /*event*/)
+{
+    Unit* sath = AI_VALUE2(Unit*, "find target", "sathrovarr the corruptor");
+    if (!sath || !sath->IsAlive())
+        return false;
+    if (bot->GetVictim() == sath)
+        return false;
+    bot->AttackStop();
+    return bot->Attack(sath, true);
+}

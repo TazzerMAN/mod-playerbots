@@ -65,4 +65,22 @@ public:
     bool IsActive() override;
 };
 
+// Kalecgos
+
+class KalecgosBotInSpectralRealmTrigger : public Trigger
+{
+public:
+    KalecgosBotInSpectralRealmTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "kalecgos bot in spectral realm") {}
+    bool IsActive() override;
+};
+
+class KalecgosBossIsBanishedTrigger : public Trigger
+{
+public:
+    KalecgosBossIsBanishedTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "kalecgos boss is banished") {}
+    bool IsActive() override;
+};
+
 #endif

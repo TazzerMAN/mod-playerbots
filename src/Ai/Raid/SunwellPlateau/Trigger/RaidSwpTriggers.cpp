@@ -110,3 +110,36 @@ bool EredarTwinsBotNeedsTankSwapTrigger::IsActive()
     }
     return false;
 }
+
+// Kalecgos
+
+bool KalecgosBotInSpectralRealmTrigger::IsActive()
+{
+    if (!bot->HasAura(SPELL_SPECTRAL_REALM))
+        return false;
+
+    Unit* sath = AI_VALUE2(Unit*, "find target", "sathrovarr the corruptor");
+    if (!sath || !sath->IsAlive())
+        return false;
+
+    return bot->GetVictim() != sath;
+}
+
+bool KalecgosBossIsBanishedTrigger::IsActive()
+{
+    Unit* kalecgos = AI_VALUE2(Unit*, "find target", "kalecgos");
+    if (!kalecgos)
+        return false;
+    if (!kalecgos->HasAura(SPELL_BANISH))
+        return false;
+
+    // Spectral-realm bots already attack Sathrovarr.
+    if (bot->HasAura(SPELL_SPECTRAL_REALM))
+        return false;
+
+    Unit* sath = AI_VALUE2(Unit*, "find target", "sathrovarr the corruptor");
+    if (!sath || !sath->IsAlive())
+        return false;
+
+    return bot->GetVictim() == kalecgos;
+}

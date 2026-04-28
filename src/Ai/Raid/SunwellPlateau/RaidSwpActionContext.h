@@ -28,6 +28,10 @@ public:
             &RaidSwpActionContext::eredar_twins_conflagration_flee;
         creators["eredar twins taunt other sister"] =
             &RaidSwpActionContext::eredar_twins_taunt_other_sister;
+
+        // Kalecgos
+        creators["kalecgos focus sathrovarr"] =
+            &RaidSwpActionContext::kalecgos_focus_sathrovarr;
     }
 
 private:
@@ -58,6 +62,10 @@ private:
     static Action* eredar_twins_taunt_other_sister(PlayerbotAI* botAI)
     {
         return new EredarTwinsTauntOtherSisterAction(botAI);
+    }
+    static Action* kalecgos_focus_sathrovarr(PlayerbotAI* botAI)
+    {
+        return new KalecgosFocusSathrovarrAction(botAI);
     }
 };
 

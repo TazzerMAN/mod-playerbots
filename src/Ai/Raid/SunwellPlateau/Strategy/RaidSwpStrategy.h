@@ -2,6 +2,7 @@
 #define _PLAYERBOT_RAIDSWPSTRATEGY_H_
 
 #include "Strategy.h"
+#include "Multiplier.h"
 
 class RaidSwpStrategy : public Strategy
 {
@@ -11,6 +12,7 @@ public:
     std::string const getName() override { return "sunwell"; }
 
     void InitTriggers(std::vector<TriggerNode*>& triggers) override;
+    void InitMultipliers(std::vector<Multiplier*>& multipliers) override;
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "RaidSwpStrategy.h"
 
+#include "RaidSwpMultipliers.h"
+
 void RaidSwpStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 {
     // Brutallus
@@ -25,4 +27,17 @@ void RaidSwpStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode("eredar twins bot needs tank swap",
         { NextAction("eredar twins taunt other sister", ACTION_EMERGENCY + 8) }));
+
+    // Kalecgos
+    triggers.push_back(new TriggerNode("kalecgos bot in spectral realm",
+        { NextAction("kalecgos focus sathrovarr", ACTION_EMERGENCY + 7) }));
+
+    triggers.push_back(new TriggerNode("kalecgos boss is banished",
+        { NextAction("kalecgos focus sathrovarr", ACTION_EMERGENCY + 7) }));
+}
+
+void RaidSwpStrategy::InitMultipliers(std::vector<Multiplier*>& multipliers)
+{
+    // Kalecgos
+    multipliers.push_back(new KalecgosHpBalanceMultiplier(botAI));
 }

@@ -65,4 +65,14 @@ public:
     bool Execute(Event event) override;
 };
 
+// Kalecgos
+
+class KalecgosFocusSathrovarrAction : public Action
+{
+public:
+    KalecgosFocusSathrovarrAction(PlayerbotAI* botAI)
+        : Action(botAI, "kalecgos focus sathrovarr") {}
+    bool Execute(Event event) override;
+};
+
 #endif

@@ -28,6 +28,12 @@ public:
             &RaidSwpTriggerContext::eredar_twins_bot_has_conflagration;
         creators["eredar twins bot needs tank swap"] =
             &RaidSwpTriggerContext::eredar_twins_bot_needs_tank_swap;
+
+        // Kalecgos
+        creators["kalecgos bot in spectral realm"] =
+            &RaidSwpTriggerContext::kalecgos_bot_in_spectral_realm;
+        creators["kalecgos boss is banished"] =
+            &RaidSwpTriggerContext::kalecgos_boss_is_banished;
     }
 
 private:
@@ -58,6 +64,14 @@ private:
     static Trigger* eredar_twins_bot_needs_tank_swap(PlayerbotAI* botAI)
     {
         return new EredarTwinsBotNeedsTankSwapTrigger(botAI);
+    }
+    static Trigger* kalecgos_bot_in_spectral_realm(PlayerbotAI* botAI)
+    {
+        return new KalecgosBotInSpectralRealmTrigger(botAI);
+    }
+    static Trigger* kalecgos_boss_is_banished(PlayerbotAI* botAI)
+    {
+        return new KalecgosBossIsBanishedTrigger(botAI);
     }
 };
 
