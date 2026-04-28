@@ -5,11 +5,13 @@
 
 #include "MovementActions.h"
 
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <iomanip>
 #include <string>
 
+#include "AoeAvoidance.h"
 #include "Corpse.h"
 #include "Event.h"
 #include "FleeManager.h"
@@ -1870,6 +1872,13 @@ bool AvoidAoeAction::isUseful()
     if (getMSTime() - moveInterval < lastMoveTimer)
         return false;
 
+    if (Map* map = bot->GetMap())
+    {
+        auto it = AoeAvoidance::dangerZones.find(map->GetInstanceId());
+        if (it != AoeAvoidance::dangerZones.end() && !it->second.empty())
+            return true;
+    }
+
     GuidVector traps = AI_VALUE(GuidVector, "nearest trap with damage");
     GuidVector triggers = AI_VALUE(GuidVector, "possible triggers");
     return AI_VALUE(Aura*, "area debuff") || !traps.empty() || !triggers.empty();
@@ -1877,6 +1886,13 @@ bool AvoidAoeAction::isUseful()
 
 bool AvoidAoeAction::Execute(Event /*event*/)
 {
+    // Case #4: Registered danger zones (boss-specific spell listeners).
+    // Checked first so per-zone tank policy can short-circuit before the
+    // generic branches force a flee.
+    if (AvoidRegisteredDangerZones())
+    {
+        return true;
+    }
     // Case #1: Aura with dynamic object (e.g. rain of fire)
     if (AvoidAuraWithDynamicObj())
     {
@@ -2084,6 +2100,64 @@ bool AvoidAoeAction::AvoidUnitWithDamageAura()
                     }
                 }
             }
+        }
+    }
+    return false;
+}
+
+bool AvoidAoeAction::AvoidRegisteredDangerZones()
+{
+    Map* map = bot->GetMap();
+    if (!map)
+        return false;
+
+    uint32 instanceId = map->GetInstanceId();
+    if (!instanceId)
+        return false;
+
+    auto it = AoeAvoidance::dangerZones.find(instanceId);
+    if (it == AoeAvoidance::dangerZones.end() || it->second.empty())
+        return false;
+
+    auto& zones = it->second;
+    uint32 nowMs = getMSTime();
+    zones.erase(std::remove_if(zones.begin(), zones.end(),
+                               [nowMs](AoeAvoidance::DangerZone const& z)
+                               { return z.expireMs <= nowMs; }),
+                zones.end());
+    if (zones.empty())
+        return false;
+
+    bool botIsTank = botAI->IsTank(bot);
+
+    for (AoeAvoidance::DangerZone const& zone : zones)
+    {
+        if (zone.sourceSpellId &&
+            sPlayerbotAIConfig.aoeAvoidSpellWhitelist.find(zone.sourceSpellId) !=
+                sPlayerbotAIConfig.aoeAvoidSpellWhitelist.end())
+            continue;
+
+        float dist2d = bot->GetExactDist2d(zone.pos.GetPositionX(), zone.pos.GetPositionY());
+        if (dist2d > zone.radius)
+            continue;
+
+        if (botIsTank && zone.tankPolicy == AoeAvoidance::TANK_POLICY_STAY)
+            continue;
+
+        // SHORT_STEP currently behaves like FLEE; reserved for future refinement
+        // (e.g. minimal step that keeps melee tanks within range of the boss).
+        if (FleePosition(zone.pos, zone.radius))
+        {
+            if (sPlayerbotAIConfig.tellWhenAvoidAoe && lastTellTimer < time(NULL) - 10)
+            {
+                lastTellTimer = time(NULL);
+                lastMoveTimer = getMSTime();
+                std::ostringstream out;
+                out << "I'm avoiding danger zone (spell " << zone.sourceSpellId << ")"
+                    << " Radius " << zone.radius << " - [Registered]";
+                bot->Say(out.str(), LANG_UNIVERSAL);
+            }
+            return true;
         }
     }
     return false;

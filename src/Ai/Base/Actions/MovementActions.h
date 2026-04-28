@@ -121,6 +121,7 @@ protected:
     bool AvoidAuraWithDynamicObj();
     bool AvoidGameObjectWithDamage();
     bool AvoidUnitWithDamageAura();
+    bool AvoidRegisteredDangerZones();
     time_t lastTellTimer = 0;
     int lastMoveTimer = 0;
     int moveInterval;
