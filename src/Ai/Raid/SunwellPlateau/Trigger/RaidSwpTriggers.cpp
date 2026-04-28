@@ -73,3 +73,40 @@ bool FelmystBossIsFlyingTrigger::IsActive()
     // back off on landing, so this flag is the single reliable signal.
     return felmyst->HasUnitMovementFlag(MOVEMENTFLAG_DISABLE_GRAVITY);
 }
+
+// Eredar Twins
+
+bool EredarTwinsBotHasConflagrationTrigger::IsActive()
+{
+    return bot->HasAura(SPELL_CONFLAGRATION);
+}
+
+bool EredarTwinsBotNeedsTankSwapTrigger::IsActive()
+{
+    if (!botAI->IsTank(bot))
+        return false;
+
+    Unit* victim = bot->GetVictim();
+    if (!victim)
+        return false;
+
+    Aura* darkTouched = bot->GetAura(SPELL_DARK_TOUCHED);
+    Aura* flameTouched = bot->GetAura(SPELL_FLAME_TOUCHED);
+
+    // Sacrolash hits give Dark Touched. Once they pile up, the tank that is
+    // engaging Sacrolash should taunt Alythess so the off-tank's stacks
+    // (Flame Touched) start dropping while their own bleed off.
+    if (darkTouched && darkTouched->GetStackAmount() >= EREDAR_SWAP_STACK_THRESHOLD)
+    {
+        Unit* sacrolash = AI_VALUE2(Unit*, "find target", "lady sacrolash");
+        if (sacrolash && victim == sacrolash)
+            return true;
+    }
+    if (flameTouched && flameTouched->GetStackAmount() >= EREDAR_SWAP_STACK_THRESHOLD)
+    {
+        Unit* alythess = AI_VALUE2(Unit*, "find target", "grand warlock alythess");
+        if (alythess && victim == alythess)
+            return true;
+    }
+    return false;
+}

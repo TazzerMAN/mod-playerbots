@@ -22,6 +22,14 @@ namespace SunwellHelpers
         SPELL_STRAFE_TOP                    = 45585,
         SPELL_STRAFE_MIDDLE                 = 45633,
         SPELL_STRAFE_BOTTOM                 = 45635,
+
+        // Eredar Twins
+        SPELL_DARK_TOUCHED                  = 45347,
+        SPELL_FLAME_TOUCHED                 = 45348,
+        SPELL_SHADOW_NOVA                   = 45329,
+        SPELL_PYROGENICS                    = 45230,
+        SPELL_CONFLAGRATION                 = 45342,
+        SPELL_BLAZE_SUMMON                  = 45236,
     };
 
     enum SwpNPCs
@@ -72,6 +80,17 @@ namespace SunwellHelpers
     extern const Position FELMYST_LANDING_LEFT;
     extern const Position FELMYST_LANDING_RIGHT;
     extern const Position FELMYST_ROOM_CENTER;
+
+    // Eredar Twins tuning
+    // Conflagration is a stacking fire DoT that spreads to allies within ~6y;
+    // 15y matches the canonical 25-man strategy.
+    constexpr float CONFLAGRATION_FLEE_DISTANCE   = 15.0f;
+    // Blaze flame patches persist for ~30s on the ground.
+    constexpr uint32 BLAZE_TTL_MS                 = 30000;
+    constexpr float BLAZE_RADIUS                  = 6.0f;
+    // Tank swap threshold: above this stack count of Dark/Flame Touched the
+    // tank's damage taken from that school spirals; canonical strat swaps at 5.
+    constexpr uint8 EREDAR_SWAP_STACK_THRESHOLD   = 5;
 }
 
 #endif

@@ -47,4 +47,22 @@ public:
     bool Execute(Event event) override;
 };
 
+// Eredar Twins
+
+class EredarTwinsConflagrationFleeAction : public MovementAction
+{
+public:
+    EredarTwinsConflagrationFleeAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "eredar twins conflagration flee") {}
+    bool Execute(Event event) override;
+};
+
+class EredarTwinsTauntOtherSisterAction : public Action
+{
+public:
+    EredarTwinsTauntOtherSisterAction(PlayerbotAI* botAI)
+        : Action(botAI, "eredar twins taunt other sister") {}
+    bool Execute(Event event) override;
+};
+
 #endif

@@ -47,4 +47,22 @@ public:
     bool IsActive() override;
 };
 
+// Eredar Twins
+
+class EredarTwinsBotHasConflagrationTrigger : public Trigger
+{
+public:
+    EredarTwinsBotHasConflagrationTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "eredar twins bot has conflagration") {}
+    bool IsActive() override;
+};
+
+class EredarTwinsBotNeedsTankSwapTrigger : public Trigger
+{
+public:
+    EredarTwinsBotNeedsTankSwapTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "eredar twins bot needs tank swap") {}
+    bool IsActive() override;
+};
+
 #endif

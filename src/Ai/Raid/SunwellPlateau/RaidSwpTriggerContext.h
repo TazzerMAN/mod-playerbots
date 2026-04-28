@@ -22,6 +22,12 @@ public:
             &RaidSwpTriggerContext::felmyst_bot_has_encapsulate;
         creators["felmyst boss is flying"] =
             &RaidSwpTriggerContext::felmyst_boss_is_flying;
+
+        // Eredar Twins
+        creators["eredar twins bot has conflagration"] =
+            &RaidSwpTriggerContext::eredar_twins_bot_has_conflagration;
+        creators["eredar twins bot needs tank swap"] =
+            &RaidSwpTriggerContext::eredar_twins_bot_needs_tank_swap;
     }
 
 private:
@@ -44,6 +50,14 @@ private:
     static Trigger* felmyst_boss_is_flying(PlayerbotAI* botAI)
     {
         return new FelmystBossIsFlyingTrigger(botAI);
+    }
+    static Trigger* eredar_twins_bot_has_conflagration(PlayerbotAI* botAI)
+    {
+        return new EredarTwinsBotHasConflagrationTrigger(botAI);
+    }
+    static Trigger* eredar_twins_bot_needs_tank_swap(PlayerbotAI* botAI)
+    {
+        return new EredarTwinsBotNeedsTankSwapTrigger(botAI);
     }
 };
 

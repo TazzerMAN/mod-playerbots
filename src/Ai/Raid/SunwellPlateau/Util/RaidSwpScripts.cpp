@@ -95,6 +95,22 @@ public:
                 AoeAvoidance::TANK_POLICY_STAY);
             return;
         }
+
+        // Eredar Twins — Blaze flame patches. Alythess casts SPELL_BLAZE on
+        // her victim every ~3.8s, which script-effects into SPELL_BLAZE_SUMMON
+        // cast by the victim on themselves; the summon spawns the patch at
+        // that ground position. Register it so bots dodge.
+        if (spellInfo->Id == SPELL_BLAZE_SUMMON)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                instanceId,
+                caster->GetPosition(),
+                BLAZE_RADIUS,
+                BLAZE_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
     }
 };
 

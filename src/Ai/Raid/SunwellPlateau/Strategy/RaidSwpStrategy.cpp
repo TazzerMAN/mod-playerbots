@@ -18,4 +18,11 @@ void RaidSwpStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode("felmyst boss is flying",
         { NextAction("felmyst pre-landing position", ACTION_RAID + 1) }));
+
+    // Eredar Twins
+    triggers.push_back(new TriggerNode("eredar twins bot has conflagration",
+        { NextAction("eredar twins conflagration flee", ACTION_EMERGENCY + 6) }));
+
+    triggers.push_back(new TriggerNode("eredar twins bot needs tank swap",
+        { NextAction("eredar twins taunt other sister", ACTION_EMERGENCY + 8) }));
 }

@@ -126,3 +126,36 @@ bool FelmystPreLandingPositionAction::Execute(Event /*event*/)
                   false, false, false, false,
                   MovementPriority::MOVEMENT_NORMAL);
 }
+
+bool EredarTwinsConflagrationFleeAction::Execute(Event /*event*/)
+{
+    return MoveFromGroup(CONFLAGRATION_FLEE_DISTANCE);
+}
+
+bool EredarTwinsTauntOtherSisterAction::Execute(Event /*event*/)
+{
+    Unit* sacrolash = AI_VALUE2(Unit*, "find target", "lady sacrolash");
+    Unit* alythess = AI_VALUE2(Unit*, "find target", "grand warlock alythess");
+    if (!sacrolash || !alythess)
+        return false;
+
+    Unit* victim = bot->GetVictim();
+    Unit* otherSister = nullptr;
+    if (victim == sacrolash)
+        otherSister = alythess;
+    else if (victim == alythess)
+        otherSister = sacrolash;
+
+    if (!otherSister || !otherSister->IsAlive())
+        return false;
+
+    // Switch our melee focus then trigger a taunt through the class strategy.
+    // "taunt spell" resolves to Taunt / Growl / Hand of Reckoning / Dark
+    // Command per the bot's class, so this works for every tank spec.
+    bot->AttackStop();
+    if (!bot->Attack(otherSister, true))
+        return false;
+
+    botAI->DoSpecificAction("taunt spell", Event(), true);
+    return true;
+}

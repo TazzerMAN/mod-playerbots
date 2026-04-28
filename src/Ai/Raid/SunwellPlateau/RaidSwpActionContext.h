@@ -22,6 +22,12 @@ public:
             &RaidSwpActionContext::felmyst_encapsulate_flee;
         creators["felmyst pre-landing position"] =
             &RaidSwpActionContext::felmyst_pre_landing_position;
+
+        // Eredar Twins
+        creators["eredar twins conflagration flee"] =
+            &RaidSwpActionContext::eredar_twins_conflagration_flee;
+        creators["eredar twins taunt other sister"] =
+            &RaidSwpActionContext::eredar_twins_taunt_other_sister;
     }
 
 private:
@@ -44,6 +50,14 @@ private:
     static Action* felmyst_pre_landing_position(PlayerbotAI* botAI)
     {
         return new FelmystPreLandingPositionAction(botAI);
+    }
+    static Action* eredar_twins_conflagration_flee(PlayerbotAI* botAI)
+    {
+        return new EredarTwinsConflagrationFleeAction(botAI);
+    }
+    static Action* eredar_twins_taunt_other_sister(PlayerbotAI* botAI)
+    {
+        return new EredarTwinsTauntOtherSisterAction(botAI);
     }
 };
 
