@@ -18,6 +18,7 @@
 #include "Ai/Raid/Ulduar/RaidUlduarActionContext.h"
 #include "Ai/Raid/Onyxia/RaidOnyxiaActionContext.h"
 #include "Ai/Raid/Icecrown/RaidIccActionContext.h"
+#include "Ai/Raid/SunwellPlateau/RaidSwpActionContext.h"
 #include "Ai/Dungeon/TbcDungeonActionContext.h"
 #include "Ai/Dungeon/WotlkDungeonActionContext.h"
 
@@ -42,6 +43,7 @@ void AiObjectContext::BuildSharedActionContexts(SharedNamedObjectContextList<Act
     actionContexts.Add(new RaidUlduarActionContext());
     actionContexts.Add(new RaidOnyxiaActionContext());
     actionContexts.Add(new RaidIccActionContext());
+    actionContexts.Add(new RaidSwpActionContext());
     actionContexts.Add(new TbcDungeonAuchenaiCryptsActionContext());
     actionContexts.Add(new WotlkDungeonUKActionContext());
     actionContexts.Add(new WotlkDungeonNexActionContext());

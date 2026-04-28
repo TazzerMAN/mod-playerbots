@@ -1585,7 +1585,7 @@ void PlayerbotAI::ApplyInstanceStrategies(uint32 mapId, bool tellMaster)
     static const std::vector<std::string> allInstanceStrategies =
     {
         "aq20", "bwl", "karazhan", "gruulslair", "icc", "magtheridon", "moltencore",
-        "naxx", "onyxia", "ssc", "tbc-ac", "tempestkeep", "ulduar", "voa", "wotlk-an", "wotlk-cos",
+        "naxx", "onyxia", "ssc", "sunwell", "tbc-ac", "tempestkeep", "ulduar", "voa", "wotlk-an", "wotlk-cos",
         "wotlk-dtk", "wotlk-eoe", "wotlk-fos", "wotlk-gd", "wotlk-hol", "wotlk-hor",
         "wotlk-hos", "wotlk-nex", "wotlk-occ", "wotlk-ok", "wotlk-os", "wotlk-pos",
         "wotlk-toc", "wotlk-uk", "wotlk-up", "wotlk-vh", "zulaman"
@@ -1635,6 +1635,9 @@ void PlayerbotAI::ApplyInstanceStrategies(uint32 mapId, bool tellMaster)
             break;
         case 568:
             strategyName = "zulaman";  // Zul'Aman
+            break;
+        case 580:
+            strategyName = "sunwell";  // Sunwell Plateau
             break;
         case 574:
             strategyName = "wotlk-uk";  // Utgarde Keep

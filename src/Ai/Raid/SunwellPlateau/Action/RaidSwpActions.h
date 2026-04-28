@@ -1,0 +1,32 @@
+#ifndef _PLAYERBOT_RAIDSWPACTIONS_H
+#define _PLAYERBOT_RAIDSWPACTIONS_H
+
+#include "MovementActions.h"
+
+// Brutallus
+
+class BrutallusBurnSpreadAction : public MovementAction
+{
+public:
+    BrutallusBurnSpreadAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "brutallus burn spread") {}
+    bool Execute(Event event) override;
+};
+
+class BrutallusPositionBehindBossAction : public MovementAction
+{
+public:
+    BrutallusPositionBehindBossAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "brutallus position behind boss") {}
+    bool Execute(Event event) override;
+};
+
+class BrutallusSpreadFromCursedAllyAction : public MovementAction
+{
+public:
+    BrutallusSpreadFromCursedAllyAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "brutallus spread from cursed ally") {}
+    bool Execute(Event event) override;
+};
+
+#endif

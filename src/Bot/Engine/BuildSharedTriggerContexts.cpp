@@ -18,6 +18,7 @@
 #include "Ai/Raid/Ulduar/RaidUlduarTriggerContext.h"
 #include "Ai/Raid/Onyxia/RaidOnyxiaTriggerContext.h"
 #include "Ai/Raid/Icecrown/RaidIccTriggerContext.h"
+#include "Ai/Raid/SunwellPlateau/RaidSwpTriggerContext.h"
 #include "Ai/Dungeon/TbcDungeonTriggerContext.h"
 #include "Ai/Dungeon/WotlkDungeonTriggerContext.h"
 
@@ -42,6 +43,7 @@ void AiObjectContext::BuildSharedTriggerContexts(SharedNamedObjectContextList<Tr
     triggerContexts.Add(new RaidUlduarTriggerContext());
     triggerContexts.Add(new RaidOnyxiaTriggerContext());
     triggerContexts.Add(new RaidIccTriggerContext());
+    triggerContexts.Add(new RaidSwpTriggerContext());
     triggerContexts.Add(new TbcDungeonAuchenaiCryptsTriggerContext());
     triggerContexts.Add(new WotlkDungeonUKTriggerContext());
     triggerContexts.Add(new WotlkDungeonNexTriggerContext());
