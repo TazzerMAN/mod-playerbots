@@ -45,6 +45,56 @@ public:
                 AoeAvoidance::TANK_POLICY_STAY);
             return;
         }
+
+        // Felmyst — Demonic Vapor trail clouds. Each `npc_demonic_vapor_trail`
+        // casts SPELL_DEMONIC_VAPOR_TRAIL_PERIODIC on itself when it spawns,
+        // then despawns after 20s. Register the spawn position so bots avoid
+        // it for the cloud's lifetime.
+        if (spellInfo->Id == SPELL_DEMONIC_VAPOR_TRAIL_PERIODIC)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                instanceId,
+                caster->GetPosition(),
+                DEMONIC_VAPOR_TRAIL_RADIUS,
+                DEMONIC_VAPOR_TRAIL_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
+
+        // Felmyst — flight-phase breath. Boss casts SPELL_STRAFE_*
+        // 16 times along a lane (250ms apart); each cast lays down one
+        // tile of the corridor, building a continuous danger path the
+        // raid must clear. Tank policy is FLEE: during the breath the
+        // boss is unreachable anyway, so no aggro to drop.
+        if (spellInfo->Id == SPELL_STRAFE_TOP    ||
+            spellInfo->Id == SPELL_STRAFE_MIDDLE ||
+            spellInfo->Id == SPELL_STRAFE_BOTTOM)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                instanceId,
+                caster->GetPosition(),
+                STRAFE_RADIUS,
+                STRAFE_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
+
+        // Felmyst — Gas Nova is a self-cast AoE that ticks around the boss
+        // during the ground phase. Tank policy is STAY (tank holds aggro
+        // and eats it); ranged DPS / healers step to max range.
+        if (spellInfo->Id == SPELL_GAS_NOVA)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                instanceId,
+                caster->GetPosition(),
+                GAS_NOVA_RADIUS,
+                GAS_NOVA_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_STAY);
+            return;
+        }
     }
 };
 

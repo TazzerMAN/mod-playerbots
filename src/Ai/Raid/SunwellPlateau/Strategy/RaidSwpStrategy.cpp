@@ -11,4 +11,11 @@ void RaidSwpStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode("brutallus bot in meteor slash cone",
         { NextAction("brutallus position behind boss", ACTION_RAID + 1) }));
+
+    // Felmyst
+    triggers.push_back(new TriggerNode("felmyst bot has encapsulate",
+        { NextAction("felmyst encapsulate flee", ACTION_EMERGENCY + 6) }));
+
+    triggers.push_back(new TriggerNode("felmyst boss is flying",
+        { NextAction("felmyst pre-landing position", ACTION_RAID + 1) }));
 }

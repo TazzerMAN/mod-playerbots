@@ -29,4 +29,22 @@ public:
     bool IsActive() override;
 };
 
+// Felmyst
+
+class FelmystBotHasEncapsulateTrigger : public Trigger
+{
+public:
+    FelmystBotHasEncapsulateTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "felmyst bot has encapsulate") {}
+    bool IsActive() override;
+};
+
+class FelmystBossIsFlyingTrigger : public Trigger
+{
+public:
+    FelmystBossIsFlyingTrigger(PlayerbotAI* botAI)
+        : Trigger(botAI, "felmyst boss is flying") {}
+    bool IsActive() override;
+};
+
 #endif

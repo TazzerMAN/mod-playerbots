@@ -53,3 +53,23 @@ bool BrutallusBotInMeteorSlashConeTrigger::IsActive()
 
     return brutallus->HasInArc(METEOR_SLASH_FRONT_ARC, bot);
 }
+
+// Felmyst
+
+bool FelmystBotHasEncapsulateTrigger::IsActive()
+{
+    if (botAI->IsTank(bot))
+        return false;
+    return bot->HasAura(SPELL_ENCAPSULATE_CHANNEL);
+}
+
+bool FelmystBossIsFlyingTrigger::IsActive()
+{
+    Unit* felmyst = AI_VALUE2(Unit*, "find target", "felmyst");
+    if (!felmyst || !felmyst->IsAlive())
+        return false;
+
+    // boss_felmyst.cpp toggles MOVEMENTFLAG_DISABLE_GRAVITY on takeoff and
+    // back off on landing, so this flag is the single reliable signal.
+    return felmyst->HasUnitMovementFlag(MOVEMENTFLAG_DISABLE_GRAVITY);
+}

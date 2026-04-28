@@ -29,4 +29,22 @@ public:
     bool Execute(Event event) override;
 };
 
+// Felmyst
+
+class FelmystEncapsulateFleeAction : public MovementAction
+{
+public:
+    FelmystEncapsulateFleeAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "felmyst encapsulate flee") {}
+    bool Execute(Event event) override;
+};
+
+class FelmystPreLandingPositionAction : public MovementAction
+{
+public:
+    FelmystPreLandingPositionAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "felmyst pre-landing position") {}
+    bool Execute(Event event) override;
+};
+
 #endif

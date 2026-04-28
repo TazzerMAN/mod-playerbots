@@ -80,3 +80,49 @@ bool BrutallusSpreadFromCursedAllyAction::Execute(Event /*event*/)
 
     return MoveAway(nearestCursed, distToTravel);
 }
+
+bool FelmystEncapsulateFleeAction::Execute(Event /*event*/)
+{
+    return MoveFromGroup(ENCAPSULATE_FLEE_DISTANCE);
+}
+
+bool FelmystPreLandingPositionAction::Execute(Event /*event*/)
+{
+    Unit* felmyst = AI_VALUE2(Unit*, "find target", "felmyst");
+    if (!felmyst)
+        return false;
+
+    // Tanks anticipate the landing side based on which pad Felmyst is
+    // closer to, so they can pick her up the instant she touches down.
+    // Everyone else regroups at the room center where they are equidistant
+    // from both pads — the breath corridor never crosses dead-center.
+    Position target;
+    if (botAI->IsTank(bot))
+    {
+        float bossDistLeft = felmyst->GetExactDist2d(
+            FELMYST_LANDING_LEFT.GetPositionX(),
+            FELMYST_LANDING_LEFT.GetPositionY());
+        float bossDistRight = felmyst->GetExactDist2d(
+            FELMYST_LANDING_RIGHT.GetPositionX(),
+            FELMYST_LANDING_RIGHT.GetPositionY());
+        target = (bossDistLeft < bossDistRight)
+            ? FELMYST_LANDING_LEFT
+            : FELMYST_LANDING_RIGHT;
+    }
+    else
+    {
+        target = FELMYST_ROOM_CENTER;
+    }
+
+    // Skip the move if we are already in position; avoids churn when the
+    // trigger keeps firing throughout the flight phase.
+    if (bot->GetExactDist2d(target.GetPositionX(), target.GetPositionY()) < 5.0f)
+        return false;
+
+    return MoveTo(felmyst->GetMapId(),
+                  target.GetPositionX(),
+                  target.GetPositionY(),
+                  target.GetPositionZ(),
+                  false, false, false, false,
+                  MovementPriority::MOVEMENT_NORMAL);
+}
