@@ -170,3 +170,8 @@ bool KalecgosFocusSathrovarrAction::Execute(Event /*event*/)
     bot->AttackStop();
     return bot->Attack(sath, true);
 }
+
+bool KiljaedenFireBloomFleeAction::Execute(Event /*event*/)
+{
+    return MoveFromGroup(FIRE_BLOOM_FLEE_DISTANCE);
+}

@@ -43,6 +43,11 @@ namespace SunwellHelpers
         SPELL_SPECTRAL_REALM                = 46021,
         SPELL_CURSE_OF_BOUNDLESS_AGONY      = 45032,
         SPELL_BANISH                        = 44836,
+
+        // Kil'jaeden
+        SPELL_FIRE_BLOOM                    = 45641,
+        SPELL_FLAME_DART_EXPLOSION          = 45746,
+        SPELL_ARMAGEDDON_VISUAL             = 45911,
     };
 
     enum SwpNPCs
@@ -115,6 +120,19 @@ namespace SunwellHelpers
     // Pause DPS on our boss when the other realm is more than this many
     // HP percent points behind, to keep the simultaneous 1% banish in sync.
     constexpr float KALECGOS_HP_BALANCE_THRESHOLD = 5.0f;
+
+    // Kil'jaeden tuning
+    // Fire Bloom is a magic debuff applied to 5 players that ticks AoE damage
+    // around them; spread to avoid splash on allies.
+    constexpr float FIRE_BLOOM_FLEE_DISTANCE      = 15.0f;
+    // Flame Dart explosions hit a small AoE at the target's position; the
+    // damage is instant but the heat zone lingers briefly.
+    constexpr uint32 FLAME_DART_TTL_MS            = 4000;
+    constexpr float FLAME_DART_RADIUS             = 8.0f;
+    // Armageddon meteors land where the visual was cast; damage zone holds
+    // for several seconds.
+    constexpr uint32 ARMAGEDDON_TTL_MS            = 5000;
+    constexpr float ARMAGEDDON_RADIUS             = 10.0f;
 }
 
 #endif

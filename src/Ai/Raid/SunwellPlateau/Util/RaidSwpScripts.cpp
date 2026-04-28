@@ -126,6 +126,35 @@ public:
                 AoeAvoidance::TANK_POLICY_FLEE);
             return;
         }
+
+        // Kil'jaeden — Armageddon meteor visual marks the landing spot just
+        // before the missile impact. Register the meteor's ground zone so
+        // bots leave it before the hit.
+        if (spellInfo->Id == SPELL_ARMAGEDDON_VISUAL)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                caster->GetMap()->GetInstanceId(),
+                caster->GetPosition(),
+                ARMAGEDDON_RADIUS,
+                ARMAGEDDON_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
+
+        // Kil'jaeden — Flame Dart explosion is cast on hit targets; the
+        // resulting AoE damages anyone close. Register the impact site.
+        if (spellInfo->Id == SPELL_FLAME_DART_EXPLOSION)
+        {
+            AoeAvoidance::RegisterDangerZone(
+                caster->GetMap()->GetInstanceId(),
+                caster->GetPosition(),
+                FLAME_DART_RADIUS,
+                FLAME_DART_TTL_MS,
+                spellInfo->Id,
+                AoeAvoidance::TANK_POLICY_FLEE);
+            return;
+        }
     }
 };
 

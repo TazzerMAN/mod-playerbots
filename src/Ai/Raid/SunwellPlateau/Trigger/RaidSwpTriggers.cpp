@@ -143,3 +143,10 @@ bool KalecgosBossIsBanishedTrigger::IsActive()
 
     return bot->GetVictim() == kalecgos;
 }
+
+// Kil'jaeden
+
+bool KiljaedenBotHasFireBloomTrigger::IsActive()
+{
+    return bot->HasAura(SPELL_FIRE_BLOOM);
+}

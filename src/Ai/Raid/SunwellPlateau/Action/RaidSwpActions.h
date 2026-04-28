@@ -75,4 +75,14 @@ public:
     bool Execute(Event event) override;
 };
 
+// Kil'jaeden
+
+class KiljaedenFireBloomFleeAction : public MovementAction
+{
+public:
+    KiljaedenFireBloomFleeAction(PlayerbotAI* botAI)
+        : MovementAction(botAI, "kiljaeden fire bloom flee") {}
+    bool Execute(Event event) override;
+};
+
 #endif

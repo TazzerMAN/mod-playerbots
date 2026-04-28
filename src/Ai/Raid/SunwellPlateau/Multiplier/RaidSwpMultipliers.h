@@ -15,4 +15,18 @@ public:
     float GetValue(Action* action) override;
 };
 
+// Kil'jaeden
+//
+// While Hands of the Deceiver are alive (Phase 2), pauses any offensive
+// action that targets Kil'jaeden himself so DPS bots roll onto the Hands.
+// The Hands gate Phase 3 transition; killing Kil'jaeden too early without
+// using a Hand to absorb Darkness of a Thousand Souls wipes the raid.
+class KiljaedenFocusHandsMultiplier : public Multiplier
+{
+public:
+    KiljaedenFocusHandsMultiplier(PlayerbotAI* botAI)
+        : Multiplier(botAI, "kiljaeden focus hands multiplier") {}
+    float GetValue(Action* action) override;
+};
+
 #endif

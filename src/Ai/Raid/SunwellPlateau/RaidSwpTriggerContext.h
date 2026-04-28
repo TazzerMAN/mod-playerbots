@@ -34,6 +34,10 @@ public:
             &RaidSwpTriggerContext::kalecgos_bot_in_spectral_realm;
         creators["kalecgos boss is banished"] =
             &RaidSwpTriggerContext::kalecgos_boss_is_banished;
+
+        // Kil'jaeden
+        creators["kiljaeden bot has fire bloom"] =
+            &RaidSwpTriggerContext::kiljaeden_bot_has_fire_bloom;
     }
 
 private:
@@ -72,6 +76,10 @@ private:
     static Trigger* kalecgos_boss_is_banished(PlayerbotAI* botAI)
     {
         return new KalecgosBossIsBanishedTrigger(botAI);
+    }
+    static Trigger* kiljaeden_bot_has_fire_bloom(PlayerbotAI* botAI)
+    {
+        return new KiljaedenBotHasFireBloomTrigger(botAI);
     }
 };
 

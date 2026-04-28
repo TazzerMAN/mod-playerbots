@@ -32,6 +32,10 @@ public:
         // Kalecgos
         creators["kalecgos focus sathrovarr"] =
             &RaidSwpActionContext::kalecgos_focus_sathrovarr;
+
+        // Kil'jaeden
+        creators["kiljaeden fire bloom flee"] =
+            &RaidSwpActionContext::kiljaeden_fire_bloom_flee;
     }
 
 private:
@@ -66,6 +70,10 @@ private:
     static Action* kalecgos_focus_sathrovarr(PlayerbotAI* botAI)
     {
         return new KalecgosFocusSathrovarrAction(botAI);
+    }
+    static Action* kiljaeden_fire_bloom_flee(PlayerbotAI* botAI)
+    {
+        return new KiljaedenFireBloomFleeAction(botAI);
     }
 };
 

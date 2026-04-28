@@ -34,10 +34,17 @@ void RaidSwpStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 
     triggers.push_back(new TriggerNode("kalecgos boss is banished",
         { NextAction("kalecgos focus sathrovarr", ACTION_EMERGENCY + 7) }));
+
+    // Kil'jaeden
+    triggers.push_back(new TriggerNode("kiljaeden bot has fire bloom",
+        { NextAction("kiljaeden fire bloom flee", ACTION_EMERGENCY + 6) }));
 }
 
 void RaidSwpStrategy::InitMultipliers(std::vector<Multiplier*>& multipliers)
 {
     // Kalecgos
     multipliers.push_back(new KalecgosHpBalanceMultiplier(botAI));
+
+    // Kil'jaeden
+    multipliers.push_back(new KiljaedenFocusHandsMultiplier(botAI));
 }
